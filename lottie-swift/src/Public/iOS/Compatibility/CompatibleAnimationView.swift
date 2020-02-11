@@ -56,7 +56,9 @@ public final class CompatibleAnimationView: UIView {
   }
 
   required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    animationView = animationView()
+    super.init(coder: aDecoder);
+    commonInit()
   }
 
   // MARK: Public
