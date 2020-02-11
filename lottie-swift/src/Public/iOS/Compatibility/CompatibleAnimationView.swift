@@ -60,7 +60,14 @@ public final class CompatibleAnimationView: UIView {
   }
 
   // MARK: Public
-
+  @IBInspectable
+  @objc var animation: String? {
+    didSet {
+      guard let animation = animation, animation != "" else { return }
+      animationView = AnimationView(animation: Animation.named(animation, bundle: Bundle.main))
+    }
+  }
+  
   @objc
   public var compatibleAnimation: CompatibleAnimation? {
     didSet {
@@ -302,7 +309,7 @@ public final class CompatibleAnimationView: UIView {
 
   // MARK: Private
 
-  private let animationView: AnimationView
+  private var animationView: AnimationView
 
   private func commonInit() {
     translatesAutoresizingMaskIntoConstraints = false
