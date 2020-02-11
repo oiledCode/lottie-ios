@@ -56,7 +56,7 @@ public final class CompatibleAnimationView: UIView {
   }
 
   required init?(coder aDecoder: NSCoder) {
-    animationView = animationView()
+    animationView = AnimationView()
     super.init(coder: aDecoder);
     commonInit()
   }
