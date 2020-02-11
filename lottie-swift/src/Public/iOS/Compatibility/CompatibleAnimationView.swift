@@ -312,7 +312,12 @@ public final class CompatibleAnimationView: UIView {
   // MARK: Private
 
   private var animationView: AnimationView
-
+  
+  public override func awakeFromNib() {
+    super.awakeFromNib()
+    guard let animation = animation, animation != "" else { return }
+    animationView = AnimationView(animation: Animation.named(animation, bundle: Bundle.main))
+  }
   private func commonInit() {
     translatesAutoresizingMaskIntoConstraints = false
     setUpViews()
