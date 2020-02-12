@@ -58,7 +58,6 @@ public final class CompatibleAnimationView: UIView {
   required init?(coder aDecoder: NSCoder) {
     animationView = AnimationView()
     super.init(coder: aDecoder);
-    commonInit()
   }
 
   // MARK: Public
@@ -66,7 +65,11 @@ public final class CompatibleAnimationView: UIView {
   @objc var animation: String? {
     didSet {
       guard let animation = animation, animation != "" else { return }
+      if animationView.superview != nil {
+        animationView.removeFromSuperview()
+      }
       animationView = AnimationView(animation: Animation.named(animation, bundle: Bundle.main))
+      commonInit()
     }
   }
   
@@ -316,7 +319,11 @@ public final class CompatibleAnimationView: UIView {
   public override func awakeFromNib() {
     super.awakeFromNib()
     guard let animation = animation, animation != "" else { return }
+    if (animationView.superview != nil) {
+      animationView.removeFromSuperview()
+    }
     animationView = AnimationView(animation: Animation.named(animation, bundle: Bundle.main))
+    commonInit()
   }
   private func commonInit() {
     translatesAutoresizingMaskIntoConstraints = false
@@ -325,6 +332,9 @@ public final class CompatibleAnimationView: UIView {
 
   private func setUpViews() {
     animationView.translatesAutoresizingMaskIntoConstraints = false
+    if (self.animationView.superview != nil) {
+      self.animationView.removeFromSuperview()
+    }
     addSubview(animationView)
     animationView.topAnchor.constraint(equalTo: topAnchor).isActive = true
     animationView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
